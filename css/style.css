@@ -485,3 +485,13 @@ body {
         transform: translateY(0);
     }
 }
+
+/* Fix: ensure semantic emphasis tags render bold even if a global reset sets font-weight: inherit */
+strong, b, em {
+    font-weight: 700;
+}
+
+/* Prefer slightly stronger weight for emphasized text inside activity cards */
+.activity-item strong, .activity-item b, .activity-item em {
+    font-weight: 700;
+}

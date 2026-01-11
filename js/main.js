@@ -242,13 +242,15 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
             const text = (translations[lang] && translations[lang][key]) ? translations[lang][key] : null;
-            
-            // ★ 關鍵修改：使用 innerHTML 以支援粗體 <strong> 標籤
-            if (text !== null) el.innerHTML = text;
+            if (text !== null) {
+                // use innerHTML only when translation contains HTML tags
+                if (/<[a-z][\s\S]*>/i.test(text)) el.innerHTML = text; else el.textContent = text;
+            }
         });
 
         updateThemeButton();
         if (translations[lang] && translations[lang]['title']) document.title = translations[lang]['title'];
+        console.log('Applied translations:', lang);
     }
 
     // --- 4. 初始化與監聽器 ---
@@ -256,10 +258,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // 從記憶體讀取語言設定，如果沒有就預設英文 (因為你的 HTML 是英文)
     const savedLang = localStorage.getItem('cv-lang') || 'en';
     
-    // 如果是中文模式，才需要執行翻譯（因為預設 HTML 已經是英文了）
-    if (savedLang === 'zh') {
-        applyTranslations('zh');
-    }
+    // Apply saved language at startup (ensure UI buttons/texts reflect stored preference)
+    applyTranslations(savedLang);
 
     // 語言切換按鈕監聽
     const langToggle = document.getElementById('lang-toggle');
@@ -267,10 +267,8 @@ document.addEventListener('DOMContentLoaded', function() {
         langToggle.addEventListener('click', function() {
             const current = localStorage.getItem('cv-lang') || 'en';
             const next = current === 'en' ? 'zh' : 'en';
-            
-            // 如果切換回英文，且 HTML 原本就是英文，我們可以重新載入頁面，或者用字典翻譯回英文
-            // 這裡我們統一用字典翻譯，保證一致性
             localStorage.setItem('cv-lang', next);
+            console.log('lang toggle:', current, '->', next);
             applyTranslations(next);
         });
     }
