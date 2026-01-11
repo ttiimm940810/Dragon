@@ -179,6 +179,13 @@ body {
     border-bottom: 3px solid var(--primary-color);
 }
 
+/* Ensure Activities section title is highly legible (higher contrast) */
+.section.activities .section-title {
+    color: var(--text-primary);
+    border-bottom-color: var(--text-primary);
+    font-weight: 700;
+}
+
 /* About Section */
 .about p {
     font-size: 1.1em;
