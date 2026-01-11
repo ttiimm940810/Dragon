@@ -181,8 +181,8 @@ body {
 
 /* Ensure Activities section title is highly legible (higher contrast) */
 .section.activities .section-title {
-    color: #000;
-    border-bottom-color: #000;
+    color: var(--text-primary);
+    border-bottom-color: var(--text-primary);
     font-weight: 700;
 }
 
