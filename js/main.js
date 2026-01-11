@@ -257,6 +257,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         updateThemeButton();
+        // update document title if available
+        if (translations[lang] && translations[lang]['title']) document.title = translations[lang]['title'];
     }
 
     // Initialize language from localStorage or browser settings
@@ -266,12 +268,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const langToggle = document.getElementById('lang-toggle');
     if (langToggle) {
         langToggle.addEventListener('click', function() {
+            console.log('lang-toggle clicked');
             const current = localStorage.getItem('cv-lang') || 'en';
             const next = current === 'en' ? 'zh' : 'en';
+            console.log('lang current', current, '-> next', next);
             localStorage.setItem('cv-lang', next);
             applyTranslations(next);
         });
     }
+
+    // Fallback: event delegation in case direct handler isn't attached
+    document.addEventListener('click', function(e) {
+        const btn = e.target.closest && e.target.closest('#lang-toggle');
+        if (btn) {
+            console.log('lang-toggle (delegated) clicked');
+            const current = localStorage.getItem('cv-lang') || 'en';
+            const next = current === 'en' ? 'zh' : 'en';
+            localStorage.setItem('cv-lang', next);
+            applyTranslations(next);
+        }
+    });
 
     // Ensure theme button label is correct at start
     updateThemeButton();
