@@ -241,7 +241,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const text = (translations[lang] && translations[lang][key]) ? translations[lang][key] : null;
             if (text !== null) {
                 // allow simple markup in translations (e.g., <strong>)
-                el.innerHTML = text;
+                // but prefer textContent when there's no HTML to avoid accidental HTML injection
+                if (/<[a-z][\s\S]*>/i.test(text)) {
+                    el.innerHTML = text;
+                } else {
+                    el.textContent = text;
+                }
             }
         });
 
@@ -256,7 +261,10 @@ document.addEventListener('DOMContentLoaded', function() {
         ];
         map.forEach(m => {
             const el = document.querySelector(m.sel);
-            if (el && translations[lang] && translations[lang][m.key]) el.innerHTML = translations[lang][m.key];
+            const val = translations[lang] && translations[lang][m.key] ? translations[lang][m.key] : null;
+            if (el && val !== null) {
+                if (/<[a-z][\s\S]*>/i.test(val)) el.innerHTML = val; else el.textContent = val;
+            }
         });
 
         updateThemeButton();
