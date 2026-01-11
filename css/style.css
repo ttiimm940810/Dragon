@@ -337,6 +337,49 @@ body {
     border: 1px solid var(--primary-color);
 }
 
+/* --- Activities Grid Layout (讓活動變成卡片並排) --- */
+.activities-grid {
+    display: grid;
+    /* 電腦版顯示 2 欄，自動調整寬度 */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px; /* 卡片之間的距離 */
+    margin-top: 20px;
+}
+
+.activity-item {
+    /* 卡片背景色：稍微比深色背景亮一點，營造層次感 */
+    background-color: rgba(255, 255, 255, 0.03);
+    padding: 20px;
+    border-radius: 12px; /* 圓角 */
+    border-left: 4px solid #64ffda; /* 左邊加一條亮綠色裝飾線，增加專業感 */
+    transition: transform 0.3s ease; /* 加入滑鼠懸停動畫 */
+}
+
+/* 滑鼠移過去會稍微浮起來 */
+.activity-item:hover {
+    transform: translateY(-5px);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.activity-item h4 {
+    margin-top: 0;
+    color: #e6f1ff;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.activity-item ul {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.activity-item li {
+    margin-bottom: 8px;
+    color: #8892b0; /*讓字體稍微灰一點，比較不刺眼*/
+    font-size: 0.9rem;
+    line-height: 1.5; /* 增加行距，讓閱讀不擁擠 */
+}
+
 /* Footer */
 .footer {
     background-color: var(--bg-card);

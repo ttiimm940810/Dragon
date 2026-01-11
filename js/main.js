@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'soft.crosscom': 'Cross‑functional Communication',
             'section.activities.title': 'Selected Programs & Activities',
             'act.1.title': 'SPIL (Siliconware Precision Industries) Corporate Mentor Program',
-            'act.1.li1': 'Gained in‑depth exposure to OSAT processes including bumping and IC testing.',
+            'act.1.li1': 'Gained in‑depth exposure to <strong>OSAT processes</strong>, including <strong>bumping</strong> and <strong>IC testing</strong>.',
             'act.1.li2': 'Observed fully automated production lines and OHT systems; learned cleanliness and process stability requirements.',
             'act.1.li3': 'Developed system‑level thinking by practicing anomaly localization across process stages.',
             'act.1.li4': 'Collaborated in team competitions, strengthening decision‑making and cross‑functional communication.',
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'soft.crosscom': '跨領域溝通',
             'section.activities.title': '參與活動與計畫',
             'act.1.title': 'SPIL（矽品）企業師徒計畫',
-            'act.1.li1': '深入了解 OSAT 製程，包括凸塊與 IC 測試。',
+            'act.1.li1': '深入了解 <strong>OSAT 製程</strong>，包括 <strong>凸塊</strong> 與 <strong>IC 測試</strong>。',
             'act.1.li2': '觀察到全自動化生產線與 OHT 系統，學習潔淨與製程穩定性需求。',
             'act.1.li3': '透過各製程階段的異常定位練習，建立系統層級思維。',
             'act.1.li4': '參與團隊競賽，強化決策能力與跨部門溝通。',
@@ -239,7 +239,10 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
             const text = (translations[lang] && translations[lang][key]) ? translations[lang][key] : null;
-            if (text !== null) el.textContent = text;
+            if (text !== null) {
+                // allow simple markup in translations (e.g., <strong>)
+                el.innerHTML = text;
+            }
         });
 
         // Some specific mapped IDs (project titles/descriptions)
@@ -253,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ];
         map.forEach(m => {
             const el = document.querySelector(m.sel);
-            if (el && translations[lang] && translations[lang][m.key]) el.textContent = translations[lang][m.key];
+            if (el && translations[lang] && translations[lang][m.key]) el.innerHTML = translations[lang][m.key];
         });
 
         updateThemeButton();
