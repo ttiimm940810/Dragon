@@ -12,16 +12,39 @@
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-/* TODO: Add dark mode CSS variables here */
-/* Hint: Create a body.dark-mode selector and override the CSS variables with dark theme colors */
-/* Example:
+/* Dark mode variables (optional) */
 body.dark-mode {
-    --primary-color: #3b82f6;
-    --text-primary: #f9fafb;
-    --bg-primary: #111827;
-    ... add more dark mode variables
+    --primary-color: #60a5fa;
+    --secondary-color: #1e3a8a;
+    --text-primary: #f3f4f6;
+    --text-secondary: #c7d2fe;
+    --bg-primary: #0f172a;
+    --bg-secondary: #071033;
+    --bg-card: #0b1220;
+    --border-color: rgba(255,255,255,0.06);
+    --shadow: 0 1px 3px rgba(0,0,0,0.6);
+    --shadow-lg: 0 10px 20px rgba(0,0,0,0.6);
 }
-*/
+
+/* Sidebar + two-column layout for wider screens */
+@media (min-width: 992px) {
+    .container {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 30px;
+        align-items: start;
+    }
+
+    .sidebar {
+        position: sticky;
+        top: 24px;
+        height: fit-content;
+    }
+
+    .footer {
+        grid-column: 1 / -1;
+    }
+}
 
 /* Reset and base styles */
 * {
@@ -53,6 +76,13 @@ body {
     margin-bottom: 30px;
     box-shadow: var(--shadow-lg);
     transition: background-color 0.3s ease;
+}
+
+.sidebar .profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .profile-section {
@@ -105,6 +135,12 @@ body {
     gap: 15px;
 }
 
+.sidebar .contact-info {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 18px;
+}
+
 .contact-item {
     display: flex;
     align-items: center;
@@ -121,6 +157,10 @@ body {
     display: flex;
     flex-direction: column;
     gap: 30px;
+}
+
+.main-content {
+    padding-top: 6px;
 }
 
 .section {
